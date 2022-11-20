@@ -1,14 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lippe/saving_items_overview/data-access/saving_item_repository.dart';
+import 'package:lippe/saving_items_overview/views/saving_item_overview_page.dart';
 
-class App extends StatelessWidget {
+class LippeApp extends StatelessWidget {
+  final SavingItemRepository savingItemRepository;
+
+  const LippeApp({super.key, required this.savingItemRepository});
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    return RepositoryProvider.value(
+      value: savingItemRepository,
+      child: const AppView(),
+    );
+  }
+}
+
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData.dark(),
-        home: Scaffold(
-          body: SavingsList(),
-        ),
-      );
+      theme: ThemeData.dark(),
+      // TODO: localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // TODO: supportedLocales: AppLocalizations.supportedLocales,
+      home: const Scaffold(
+        body: SavingItemOverviewPage(),
+      ),
+    );
   }
 }

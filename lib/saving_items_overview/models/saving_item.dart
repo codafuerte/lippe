@@ -1,13 +1,15 @@
-import 'package:lippe/src/data-access/database_helper.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:lippe/shared/data-access/database_helper.dart';
 
+@immutable
 class SavingItem {
-  String id;
-  String title;
-  double amount;
-  String currency;
-  DateTime date;
+  final String id;
+  final String title;
+  final double amount;
+  final String currency;
+  final DateTime date;
 
-  SavingItem(
+  const SavingItem(
       {required this.id,
       required this.title,
       required this.amount,
@@ -29,5 +31,19 @@ class SavingItem {
       DatabaseHelper.columnCurrency: currency,
       DatabaseHelper.columnDate: date
     };
+  }
+
+  SavingItem copyWith(
+      {String? id,
+      String? title,
+      double? amount,
+      String? currency,
+      DateTime? date}) {
+    return SavingItem(
+        id: id ?? this.id,
+        title: title ?? this.title,
+        amount: amount ?? this.amount,
+        currency: currency ?? this.currency,
+        date: date ?? this.date);
   }
 }

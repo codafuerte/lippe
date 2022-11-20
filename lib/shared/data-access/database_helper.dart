@@ -20,12 +20,8 @@ class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
  
   // only have a single app-wide reference to the database
-  static Database? _database;
-  Future<Database?> get database async {
-    if (_database != null) return _database;
-    // lazily instantiate the db the first time it is accessed
-    _database = await _initDatabase();
-    return _database;
+  Future<Database> get database async {
+    return await _initDatabase();
   }
  
   // this opens the database (and creates it if it doesn't exist)
