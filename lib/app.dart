@@ -26,9 +26,7 @@ class AppView extends StatelessWidget {
       theme: ThemeData.dark(),
       // TODO: localizationsDelegates: AppLocalizations.localizationsDelegates,
       // TODO: supportedLocales: AppLocalizations.supportedLocales,
-      home: const Scaffold(
-        body: SavingItemOverviewPage(),
-      ),
+      home: const SavingItemOverviewPage(),
     );
   }
 }

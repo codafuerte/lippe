@@ -1,4 +1,5 @@
-part of 'saving_items_overview_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:lippe/saving_items_overview/models/saving_item.dart';
 
 @immutable
 abstract class SavingItemsOverviewState {

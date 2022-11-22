@@ -39,6 +39,7 @@ dependencies:
   sqflite: ^2.2.0+3
   uuid: ^3.0.7
   flutter_bloc: ^8.0.0
+  bloc: ^8.0.0
   
 
 dev_dependencies:
