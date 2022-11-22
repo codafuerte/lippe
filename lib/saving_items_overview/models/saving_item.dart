@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lippe/shared/data-access/database_helper.dart';
+import 'package:uuid/uuid.dart';
+
+const uuid = Uuid();
 
 @immutable
 class SavingItem {
@@ -7,14 +10,22 @@ class SavingItem {
   final String title;
   final double amount;
   final String currency;
-  final DateTime date;
+  final String date;
 
-  const SavingItem(
-      {required this.id,
+  SavingItem({
+    required this.title,
+    required this.amount,
+    required this.currency,
+  })  : id = uuid.v4(),
+        date = DateTime.now().toIso8601String();
+
+  const SavingItem.copyWith({
+      required this.id,
       required this.title,
       required this.amount,
       required this.currency,
-      required this.date});
+      required this.date
+  });
 
   SavingItem.fromMap(Map<String, dynamic> map)
       : id = map[DatabaseHelper.columnId],
@@ -38,8 +49,8 @@ class SavingItem {
       String? title,
       double? amount,
       String? currency,
-      DateTime? date}) {
-    return SavingItem(
+      String? date}) {
+    return SavingItem.copyWith(
         id: id ?? this.id,
         title: title ?? this.title,
         amount: amount ?? this.amount,

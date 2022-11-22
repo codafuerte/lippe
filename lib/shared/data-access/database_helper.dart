@@ -35,11 +35,11 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     await db.execute('''
           CREATE TABLE $table (
-            $columnId INTEGER PRIMARY KEY,
+            $columnId TEXT PRIMARY KEY,
             $columnTitle TEXT NOT NULL,
             $columnAmount REAL NOT NULL,
             $columnCurrency TEXT NOT NULL,
-            $columnDate TEXT NOT NULL,
+            $columnDate TEXT NOT NULL
           )
           ''');
   }

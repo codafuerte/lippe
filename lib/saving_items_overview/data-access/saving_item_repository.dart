@@ -4,14 +4,19 @@ import 'package:lippe/saving_items_overview/data-access/saving_item_db_provider.
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 
 class SavingItemRepository {
-
   const SavingItemRepository({
     required SavingItemDbProvider savingItemDbProvider,
   }) : _savingItemDbProvider = savingItemDbProvider;
 
   final SavingItemDbProvider _savingItemDbProvider;
 
-  Future<List<SavingItem>> queryAllSavingItems() => _savingItemDbProvider.queryAllSavingItems();
+  // TODO: Work with Streams
 
-  Future<int> addSavingItem(SavingItem item) => _savingItemDbProvider.insert(item);
+  Future<List<SavingItem>> queryAllSavingItems() =>
+      _savingItemDbProvider.queryAllSavingItems();
+
+  Future<List<SavingItem>> addSavingItem(SavingItem item) async {
+    await _savingItemDbProvider.insert(item);
+    return queryAllSavingItems();
+  }
 }

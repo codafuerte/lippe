@@ -1,9 +1,6 @@
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 import 'package:lippe/shared/data-access/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:uuid/uuid.dart';
-
-const uuid = Uuid();
 
 class SavingItemDbProvider {
   final Database db;
@@ -17,11 +14,11 @@ class SavingItemDbProvider {
   // inserted row.
   Future<int> insert(SavingItem savingItem) async {
     return await db.insert(DatabaseHelper.table, {
-      DatabaseHelper.columnId: uuid.v4(),
+      DatabaseHelper.columnId: savingItem.id,
       DatabaseHelper.columnTitle: savingItem.title,
       DatabaseHelper.columnAmount: savingItem.amount,
       DatabaseHelper.columnCurrency: savingItem.currency,
-      DatabaseHelper.columnDate: DateTime.now()
+      DatabaseHelper.columnDate: savingItem.date
     });
   }
 

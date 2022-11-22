@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lippe/saving_items_overview/bloc/saving_items_overview_bloc.dart';
-import 'package:lippe/saving_items_overview/bloc/saving_items_overview_state.dart';
+import 'package:lippe/saving_items_overview/bloc/saving_items_bloc.dart';
+import 'package:lippe/saving_items_overview/bloc/saving_items_state.dart';
 import 'package:lippe/saving_items_overview/data-access/saving_item_repository.dart';
+import 'package:lippe/saving_items_overview/models/saving_item.dart';
 
 class SavingItemOverviewPage extends StatelessWidget {
   const SavingItemOverviewPage({super.key});
@@ -11,9 +12,11 @@ class SavingItemOverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => SavingItemsOverviewBloc(
+        create: (context) => SavingItemsBloc(
             savingItemRepository: context.read<SavingItemRepository>())
-          ..add(const GetSavingItemsOverviewEvent()),
+          ..add(const GetSavingItemsOverviewEvent())
+          ..add(AddSavingItemEvent(
+              SavingItem(title: "Cola", amount: 2.00, currency: "EUR"))),
         child: const SavingItemOverviewView());
   }
 }
@@ -27,19 +30,20 @@ class SavingItemOverviewView extends StatelessWidget {
       appBar: AppBar(
         title: const Text("You have following savings!"),
       ),
-      body: BlocBuilder<SavingItemsOverviewBloc, SavingItemsOverviewState>(
+      body: BlocBuilder<SavingItemsBloc, SavingItemsState>(
         builder: (context, state) {
           print(state.toString());
 
-          if (state is SavingItemsOverviewLoading) {
-            return const Center(child: CupertinoActivityIndicator());
+          if (state.status == SavingItemStateStatus.loading) {
+            return const Center(
+                child: CupertinoActivityIndicator()); //TODO: Cupertino is iOS
           }
 
-          if (state is SavingItemsOverviewError) {
-            return Text(state.errorMessage);
+          if (state.status == SavingItemStateStatus.failure) {
+            return Text("Error");
           }
 
-          if (state is SavingItemsOverviewSuccess) {
+          if (state.status == SavingItemStateStatus.success) {
             print(state.savingItems);
             return CupertinoScrollbar(
               child: ListView(
