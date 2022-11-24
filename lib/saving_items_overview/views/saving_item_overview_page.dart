@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lippe/saving_items_overview/bloc/saving_items_bloc.dart';
 import 'package:lippe/saving_items_overview/bloc/saving_items_state.dart';
 import 'package:lippe/saving_items_overview/data-access/saving_item_repository.dart';
@@ -46,12 +47,16 @@ class SavingItemOverviewView extends StatelessWidget {
 
           if (state.status == SavingItemStateStatus.success) {
             return SingleChildScrollView(
-                    child: Column(
+                child: Column(
               children: [
-                const SizedBox(
-                  height: 200,
-                  child: Text("Congrats, you´ve saved xxx €"),
-                ),
+                SizedBox(
+                    height: 300,
+                    child: Center(
+                      child: Text("Congratulations, you´ve saved xxx €",
+                          style: GoogleFonts.roboto(
+                              textStyle:
+                                  Theme.of(context).textTheme.headline4)),
+                    )),
                 ListView.builder(
                   shrinkWrap: true,
                   primary: false,

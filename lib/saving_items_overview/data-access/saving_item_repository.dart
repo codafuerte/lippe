@@ -22,7 +22,7 @@ class SavingItemRepository {
   }
 
   Future<Map<String, List<SavingItem>>>
-      queryAllSavingItemsGroupedByDate() async {
+      queryAllSavingItemsGroupedByDate() async { // TODO: groupBy als Attribut in UI Komponente packen, und nicht im data-access
     final Map<String, List<SavingItem>> savingItemsGroupedByDate = {};
     List<SavingItem> savingItems = await queryAllSavingItems();
     formatDate(String date) => DateFormat('dd.MM.yyyy').format(DateTime.parse(date)).toString();
