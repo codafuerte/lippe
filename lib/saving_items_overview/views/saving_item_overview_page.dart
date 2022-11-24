@@ -5,6 +5,7 @@ import 'package:lippe/saving_items_overview/bloc/saving_items_bloc.dart';
 import 'package:lippe/saving_items_overview/bloc/saving_items_state.dart';
 import 'package:lippe/saving_items_overview/data-access/saving_item_repository.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
+import 'package:lippe/saving_items_overview/widgets/saving_item_card.dart';
 
 class SavingItemOverviewPage extends StatelessWidget {
   const SavingItemOverviewPage({super.key});
@@ -44,17 +45,27 @@ class SavingItemOverviewView extends StatelessWidget {
           }
 
           if (state.status == SavingItemStateStatus.success) {
-            print(state.savingItems);
-            return CupertinoScrollbar(
-              child: ListView(
-                children: [
-                  for (final savingItem in state.savingItems)
-                    ListTile(
-                      title: Text(savingItem.title),
-                    ),
-                ],
-              ),
-            );
+            return SingleChildScrollView(
+                    child: Column(
+              children: [
+                const SizedBox(
+                  height: 200,
+                  child: Text("Congrats, you´ve saved xxx €"),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  itemCount: state.savingItemsGroupedByDate.length,
+                  itemBuilder: (context, index) => SavingItemCard(
+                      savingItems: state.savingItemsGroupedByDate.entries
+                          .elementAt(index)
+                          .value,
+                      date: state.savingItemsGroupedByDate.entries
+                          .elementAt(index)
+                          .key),
+                ),
+              ],
+            ));
           }
 
           return const SizedBox();

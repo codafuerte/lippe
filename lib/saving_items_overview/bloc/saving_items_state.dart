@@ -6,7 +6,7 @@ enum SavingItemStateStatus { initial, loading, success, failure }
 @immutable
 class SavingItemsState {
   final SavingItemStateStatus status;
-  final List<SavingItem> savingItems;
+  final Map<String, List<SavingItem>> savingItemsGroupedByDate;
 
-  const SavingItemsState(this.status, this.savingItems);
+  const SavingItemsState(this.status, this.savingItemsGroupedByDate);
 }

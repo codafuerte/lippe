@@ -10,6 +10,6 @@ class GetSavingItemsOverviewEvent extends SavingItemsEvent {
 }
 
 class AddSavingItemEvent extends SavingItemsEvent {
-  final savingItem; 
+  final SavingItem savingItem; 
   const AddSavingItemEvent(this.savingItem);
 }

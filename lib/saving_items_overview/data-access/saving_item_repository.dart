@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:intl/intl.dart';
 import 'package:lippe/saving_items_overview/data-access/saving_item_db_provider.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 
@@ -15,8 +16,23 @@ class SavingItemRepository {
   Future<List<SavingItem>> queryAllSavingItems() =>
       _savingItemDbProvider.queryAllSavingItems();
 
-  Future<List<SavingItem>> addSavingItem(SavingItem item) async {
+  Future<Map<String, List<SavingItem>>> addSavingItem(SavingItem item) async {
     await _savingItemDbProvider.insert(item);
-    return queryAllSavingItems();
+    return queryAllSavingItemsGroupedByDate();
+  }
+
+  Future<Map<String, List<SavingItem>>>
+      queryAllSavingItemsGroupedByDate() async {
+    final Map<String, List<SavingItem>> savingItemsGroupedByDate = {};
+    List<SavingItem> savingItems = await queryAllSavingItems();
+    formatDate(String date) => DateFormat('dd-MM-yyyy').parse(date).toString();
+
+    for (final item in savingItems) {
+      savingItemsGroupedByDate.containsKey(formatDate(item.date))
+          ? savingItemsGroupedByDate[formatDate(item.date)]?.add(item)
+          : savingItemsGroupedByDate[formatDate(item.date)] = [item];
+    }
+
+    return savingItemsGroupedByDate;
   }
 }
