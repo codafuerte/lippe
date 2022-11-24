@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
-import 'package:intl/intl.dart';
 
 class SavingItemListTile extends StatelessWidget {
   final SavingItem savingItem;

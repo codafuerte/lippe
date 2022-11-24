@@ -25,7 +25,7 @@ class SavingItemRepository {
       queryAllSavingItemsGroupedByDate() async {
     final Map<String, List<SavingItem>> savingItemsGroupedByDate = {};
     List<SavingItem> savingItems = await queryAllSavingItems();
-    formatDate(String date) => DateFormat('dd-MM-yyyy').parse(date).toString();
+    formatDate(String date) => DateFormat('dd.MM.yyyy').format(DateTime.parse(date)).toString();
 
     for (final item in savingItems) {
       savingItemsGroupedByDate.containsKey(formatDate(item.date))
