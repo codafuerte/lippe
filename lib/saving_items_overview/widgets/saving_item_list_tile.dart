@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 
 class SavingItemListTile extends StatelessWidget {
@@ -15,8 +16,12 @@ class SavingItemListTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(savingItem.title),
-              Text("${savingItem.amount.toString()} ${savingItem.currency}"),
+              Text(savingItem.title,
+                  style: GoogleFonts.roboto(
+                      textStyle: Theme.of(context).textTheme.headlineSmall)),
+              Text("${savingItem.amount.toString()} ${savingItem.currency}",
+                  style: GoogleFonts.roboto(
+                      textStyle: Theme.of(context).textTheme.headlineSmall)),
             ]));
   }
 }

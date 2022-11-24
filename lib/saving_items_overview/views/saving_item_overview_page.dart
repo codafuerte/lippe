@@ -29,13 +29,10 @@ class SavingItemOverviewView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("You have following savings!"),
-      ),
-      body: BlocBuilder<SavingItemsBloc, SavingItemsState>(
+        body: Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+      child: BlocBuilder<SavingItemsBloc, SavingItemsState>(
         builder: (context, state) {
-          print(state.toString());
-
           if (state.status == SavingItemStateStatus.loading) {
             return const Center(
                 child: CupertinoActivityIndicator()); //TODO: Cupertino is iOS
@@ -49,14 +46,27 @@ class SavingItemOverviewView extends StatelessWidget {
             return SingleChildScrollView(
                 child: Column(
               children: [
-                SizedBox(
-                    height: 300,
+                Container(
+                    padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
                     child: Center(
-                      child: Text("Congratulations, you´ve saved xxx €",
+                      child: Text("Your savings this month:",
                           style: GoogleFonts.roboto(
-                              textStyle:
-                                  Theme.of(context).textTheme.headline4)),
+                            textStyle:
+                                Theme.of(context).textTheme.headlineLarge,
+                          )),
                     )),
+                Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        color: Colors.lime.shade100,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Center(
+                        child: Text("34,50 €", // TODO: calculate real value
+                            style: GoogleFonts.roboto(
+                                textStyle:
+                                    Theme.of(context).textTheme.displayMedium,
+                                color: Color.fromARGB(255, 34, 106, 40))))),
                 ListView.builder(
                   shrinkWrap: true,
                   primary: false,
@@ -76,6 +86,6 @@ class SavingItemOverviewView extends StatelessWidget {
           return const SizedBox();
         },
       ),
-    );
+    ));
   }
 }

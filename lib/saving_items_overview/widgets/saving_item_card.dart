@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 import 'package:intl/intl.dart';
 import 'package:lippe/saving_items_overview/widgets/saving_item_list_tile.dart';
@@ -17,7 +18,8 @@ class SavingItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(date),
+            Text(date,style: GoogleFonts.roboto( // TODO: fix order: newest date on the top
+                      textStyle: Theme.of(context).textTheme.subtitle1)),
             const Divider(),
             ...savingItems.map((item) {
               return SavingItemListTile(savingItem: item);
