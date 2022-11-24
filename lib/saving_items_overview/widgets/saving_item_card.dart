@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 import 'package:intl/intl.dart';
+import 'package:lippe/saving_items_overview/widgets/saving_item_list_tile.dart';
 
 class SavingItemCard extends StatelessWidget {
   final List<SavingItem> savingItems;
@@ -11,21 +12,17 @@ class SavingItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-        Column(
+    return Container(
+        margin: const EdgeInsets.only(bottom: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(date),
             const Divider(),
-            SizedBox(
-                height: 120,
-                child: ListView.builder(
-                  primary: false,
-                  itemCount: savingItems.length,
-                  itemBuilder: ((BuildContext context, int index) {
-                    return ListTile(title: Text(savingItems[index].title));
-                  }),
-                ))
+            ...savingItems.map((item) {
+              return SavingItemListTile(savingItem: item);
+            }).toList(),
           ],
-        );
+        ));
   }
 }
