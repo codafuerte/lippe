@@ -7,6 +7,7 @@ import 'package:lippe/saving_items_overview/bloc/saving_items_state.dart';
 import 'package:lippe/saving_items_overview/data-access/saving_item_repository.dart';
 import 'package:lippe/saving_items_overview/models/saving_item.dart';
 import 'package:lippe/saving_items_overview/widgets/saving_item_card.dart';
+import 'package:lippe/saving_items_overview/widgets/sum_of_savings.dart';
 
 class SavingItemOverviewPage extends StatelessWidget {
   const SavingItemOverviewPage({super.key});
@@ -55,18 +56,11 @@ class SavingItemOverviewView extends StatelessWidget {
                                 Theme.of(context).textTheme.headlineLarge,
                           )),
                     )),
-                Container(
-                    height: 200,
-                    width: 200,
-                    decoration: BoxDecoration(
-                        color: Colors.lime.shade100,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Center(
-                        child: Text("34,50 €", // TODO: calculate real value
-                            style: GoogleFonts.roboto(
-                                textStyle:
-                                    Theme.of(context).textTheme.displayMedium,
-                                color: Color.fromARGB(255, 34, 106, 40))))),
+                SumOfSavings(
+                    savingItems: state.savingItemsGroupedByDate.values
+                        .expand((element) => element)
+                        .toList(),
+                    sumOfSavingsTimeWindow: SumOfSavingsTimeWindow.month),
                 ListView.builder(
                   shrinkWrap: true,
                   primary: false,
